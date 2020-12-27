@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <keep-alive :include="include">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      include: [],
+    };
+  },
+  created() {
+    this.include = this.$store.state.include;
+  },
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

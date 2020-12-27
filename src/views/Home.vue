@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <button @click="$router.push('/about')">跳转到列表</button>
+    <button @click="clear">清空</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+// eslint-disable-next-line no-unused-vars
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
+  name: "home",
+  methods: {
+    ...mapActions(["AddInclude", "DelInclude"]),
+    clear() {
+      this.DelInclude("about");
+    },
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.fullPath === "/about") {
+      this.AddInclude("about");
+    }
+    next();
+  },
 };
 </script>
